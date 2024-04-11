@@ -12,4 +12,4 @@ def cat_arrays(arr1, arr2):
         returns the new list of concatenated elements
     """
     concat_array = arr1 + arr2
-    return(concat_array)
+    return (concat_array)
