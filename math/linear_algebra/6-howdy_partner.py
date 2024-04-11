@@ -3,7 +3,7 @@
 
 
 def cat_arrays(arr1, arr2):
-    """_summary_
+    """concatenates arr1 to arr2
 
     Args:
         arr1: a list of ints/floats
