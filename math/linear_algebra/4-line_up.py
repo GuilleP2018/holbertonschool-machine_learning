@@ -2,7 +2,6 @@
 """ Module for add_arrays method """
 
 
-
 def add_arrays(arr1, arr2):
     """ Adds two arrays element-wise
     Args:
