@@ -4,6 +4,7 @@
 
 def matrix_transpose(matrix):
     """ Returns the transpose of a 2D matrix
+    transpose : turn column into rows
     Args:
         matrix: a 2D matrix
         Returns:
