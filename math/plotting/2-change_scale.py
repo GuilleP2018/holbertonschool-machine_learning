@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def change_scale():
     """Generate a plot of the exponential decay of C-14"""
     x = np.arange(0, 28651, 5730)
