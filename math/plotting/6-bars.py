@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def bars():
     """Generate a bar graph with stacked bars."""
     np.random.seed(5)
-    fruit = np.random.randint(0, 20, (4,3))
+    fruit = np.random.randint(0, 20, (4, 3))
     plt.figure(figsize=(6.4, 4.8))
 
     plt.bar([1, 2, 3], fruit[0], color="red", label="apples", width=0.5)
