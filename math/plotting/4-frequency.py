@@ -8,8 +8,8 @@ def frequency():
     """Generate a plot of a histogram"""
     np.random.seed(5)
     student_grades = np.random.normal(68, 15, 50)
+    student_grades = np.clip(student_grades, 0, 100)
     plt.figure(figsize=(6.4, 4.8))
-
     # Plotting
     bins = np.arange(0, 101, 10)
     plt.hist(student_grades, bins=bins, edgecolor='black')
