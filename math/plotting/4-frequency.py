@@ -11,14 +11,12 @@ def frequency():
     plt.figure(figsize=(6.4, 4.8))
 
     # Plotting
-    bins = range(0, 101, 10)
+    bins = np.arange(0, 101, 10)
     plt.hist(student_grades, bins=bins, edgecolor='black')
 
     # Labels and title
     plt.xlabel('Grades')
     plt.ylabel('Number of Students')
     plt.title('Project A')
-
     plt.yticks(np.arange(0, 31, 5))
-
     plt.show()
