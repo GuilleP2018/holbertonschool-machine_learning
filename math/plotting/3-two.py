@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def two():
     """Generate a plot x->y1 and x->y2"""
     x = np.arange(0, 21000, 1000)
