@@ -4,15 +4,30 @@
 
 def poly_integral(poly, C=0):
     """Calculates the integral of a polynomial"""
-    # Check if poly is a list or is empty
-    if type(poly) is not list or len(poly) == 0:
+    if not isinstance(poly, list) or len(poly) < 1:
         return None
-    # Check if poly is a list of integers
-    for i in poly:
-        if type(i) is not int:
-            return None
-    # Return the integral of the polynomial
+
+    if not isinstance(C, (int, float)):
+        return None
+
+    if poly == [0]:
+        return [C]
+
     integral = [C]
-    for i in range(len(poly)):
-        integral.append(poly[i] / (i + 1))
+
+    for pwd, coe in enumerate(poly):
+        # Check if the coefficient is a number.
+        if not isinstance(coe, (int, float)):
+            return None
+
+        # Check if the integral is an integer.
+        if coe / (pwd + 1) % 1 == 0:
+            integral.append(int(coe / (pwd + 1)))
+        else:
+            integral.append(coe / (pwd + 1))
+
+    # Remove any trailing zeros from the integral
+    while len(integral) > 1 and integral[-1] == 0:
+        integral.pop()
+
     return integral
