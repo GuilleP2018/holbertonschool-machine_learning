@@ -27,11 +27,17 @@ class Node:
 
     def count_nodes_below(self, only_leaves=False):
         """Count the number of nodes below this node"""
-        cnt = 1
-        if not self.is_leaf:
-            cnt += self.left_child.count_nodes_below(only_leaves=only_leaves)
-            cnt += self.right_child.count_nodes_below(only_leaves=only_leaves)
-        return cnt
+        if only_leaves and not self.is_leaf:
+            return (self.left_child.count_nodes_below(only_leaves=True)
+                    if self.left_child else 0) + \
+                (self.right_child.count_nodes_below(only_leaves=True)
+                 if self.right_child else 0)
+        count = 1 if not only_leaves or self.is_leaf else 0
+        count += self.left_child.count_nodes_below(
+            only_leaves) if self.left_child else 0
+        count += self.right_child.count_nodes_below(
+            only_leaves) if self.right_child else 0
+        return count
 
 
 class Leaf(Node):
