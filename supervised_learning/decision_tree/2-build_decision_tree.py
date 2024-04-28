@@ -27,17 +27,14 @@ class Node:
 
     def count_nodes_below(self, only_leaves=False):
         """Count the number of nodes below this node"""
-        if only_leaves and not self.is_leaf:
-            return (self.left_child.count_nodes_below(only_leaves=True)
-                    if self.left_child else 0) + \
-                (self.right_child.count_nodes_below(only_leaves=True)
-                 if self.right_child else 0)
-        count = 1 if not only_leaves or self.is_leaf else 0
-        count += self.left_child.count_nodes_below(
-            only_leaves) if self.left_child else 0
-        count += self.right_child.count_nodes_below(
-            only_leaves) if self.right_child else 0
-        return count
+        if only_leaves:
+            count = self.left_child.count_nodes_below(only_leaves=True)
+            count += self.right_child.count_nodes_below(only_leaves=True)
+            return count
+        else:
+            count = 1 + self.left_child.count_nodes_below()
+            count += self.right_child.count_nodes_below()
+            return count
 
     def __str__(self):
         """__str__ method for Node class"""
@@ -69,7 +66,7 @@ class Node:
         """Add prefix to the text of right child"""
         lines = text.split("\n")
         new_text = "    +--" + lines[0] + "\n"
-        new_text += "\n".join(["    |  " + line for line in lines[1:-1]])
+        new_text += "\n".join(["     " + "  " + line for line in lines[1:-1]])
         new_text += "\n" if len(lines) > 1 else ""
         return new_text
 
