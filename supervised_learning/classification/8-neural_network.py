@@ -4,7 +4,7 @@ import numpy as np
 
 
 class NeuralNetwork:
-
+    """Neural network class"""
     def __init__(self, nx, nodes):
         """Class constructor for NeuralNetwork"""
 
