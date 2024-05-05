@@ -14,9 +14,13 @@ def forward_prop(x, layer_sizes=[], activations=[]):
     a = x
 
     for i, size in enumerate(layer_sizes):
-        activation = None
-        if i < len(activations):
-            activation = activations[i]
+        # Provide a default activation function if none is specified
+        activation = tf.nn.relu if i >= len(activations) else activations[i]
+
+        # Ensure the activation function is valid
+        if not callable(activation):
+            raise ValueError(f"Invalid activation function at index {i}")
+
         a = create_layer(
             prev=a,
             n=size,
