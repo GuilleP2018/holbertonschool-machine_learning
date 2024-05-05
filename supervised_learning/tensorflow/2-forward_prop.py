@@ -11,20 +11,8 @@ create_layer = __import__('1-create_layer').create_layer
 def forward_prop(x, layer_sizes=[], activations=[]):
     """Creates the forward propagation graph for the neural network"""
 
-    a = x
+    A = x
+    for i in range(len(layer_sizes)):
+        A = create_layer(A, layer_sizes[i], activations[i])
 
-    for i, size in enumerate(layer_sizes):
-        # Provide a default activation function if none is specified
-        activation = tf.nn.relu if i >= len(activations) else activations[i]
-
-        # Ensure the activation function is valid
-        if not callable(activation):
-            raise ValueError(f"Invalid activation function at index {i}")
-
-        a = create_layer(
-            prev=a,
-            n=size,
-            activation=activation
-        )
-
-    return a
+    return A
