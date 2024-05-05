@@ -2,7 +2,7 @@
 """Module for create_layer function"""
 
 import tensorflow.compat.v1 as tf
-tf.disable_eager_execution()
+tf.disable_v2_behavior()
 
 
 def create_layer(prev, n, activation):
