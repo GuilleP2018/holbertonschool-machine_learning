@@ -7,6 +7,10 @@ tf.disable_eager_execution()
 
 def create_layer(prev, n, activation):
     """Create layer function"""
-    initializer = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-    layer = tf.layers.Dense(units=n, activation=activation, kernel_initializer=initializer, name='layer')
+    initializer = tf.keras.initializers.VarianceScaling(mode='fan_avg')
+
+    layer = tf.layers.Dense(units=n, activation=activation,
+                            kernel_initializer=initializer,
+                            name="layer")
+
     return layer(prev)
