@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+""" Sequential Module """
 import tensorflow.keras as K
 
 
