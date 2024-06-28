@@ -43,8 +43,8 @@ class Yolo:
             b_y = (self.sigmoid(t_y) + c_y) / grid_height
             anchor_width = self.anchors[i, :, 0]
             anchor_height = self.anchors[i, :, 1]
-            image_width = self.model.input.shape[1].value
-            image_height = self.model.input.shape[2].value
+            image_width = self.model.input.shape[1]
+            image_height = self.model.input.shape[2]
             b_w = (anchor_width * np.exp(t_w)) / image_width
             b_h = (anchor_height * np.exp(t_h)) / image_height
             x_1 = b_x - b_w / 2
