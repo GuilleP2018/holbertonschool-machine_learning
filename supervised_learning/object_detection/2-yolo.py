@@ -3,6 +3,7 @@
 import tensorflow as tf
 import numpy as np
 
+
 class Yolo:
     """define the YOLO class"""
     def __init__(self, model_path, classes_path, class_t, nms_t, anchors):
@@ -83,7 +84,9 @@ class Yolo:
         box_classes = []
         filtered_boxes = []
 
-        for i, (box_confidence, box_class_prob, box) in enumerate(zip(box_confidences, box_class_probs, boxes)):
+        for i, (box_confidence,
+                box_class_prob, box) in enumerate(zip(box_confidences,
+                                                      box_class_probs, boxes)):
             box_scores_per_ouput = box_confidence * box_class_prob
             max_box_scores = np.max(box_scores_per_ouput, axis=3)
             max_box_scores = max_box_scores.reshape(-1)
