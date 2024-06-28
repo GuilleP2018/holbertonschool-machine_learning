@@ -136,8 +136,10 @@ class Yolo:
                 yy1 = np.maximum(y1[ranked[0]], y1[ranked[1:]])
                 xx2 = np.minimum(x2[ranked[0]], x2[ranked[1:]])
                 yy2 = np.minimum(y2[ranked[0]], y2[ranked[1:]])
-                inter_areas = (np.maximum(0, xx2 - xx1 + 1) * np.maximum(0, yy2 - yy1 + 1))
-                union_areas = (box_areas[ranked[0]] + box_areas[ranked[1:]] - inter_areas)
+                inter_areas = (np.maximum(0, xx2 - xx1 + 1) *
+                               np.maximum(0, yy2 - yy1 + 1))
+                union_areas = (box_areas[ranked[0]] +
+                               box_areas[ranked[1:]] - inter_areas)
                 IOU = inter_areas / union_areas
 
                 updated_indices = np.where(IOU <= self.nms_t)[0]
