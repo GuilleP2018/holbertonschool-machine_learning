@@ -175,7 +175,7 @@ class Yolo:
 
         return (images, image_paths)
 
-def preprocess_images(self, images):
+    def preprocess_images(self, images):
         """function that resizes and rescales images"""
 
         pimages = []
