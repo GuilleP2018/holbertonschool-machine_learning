@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""yolo class"""
+""" Initialize Yolo """
 import tensorflow as tf
 import numpy as np
 import cv2
 import os
 
-
 class Yolo:
-    """define the YOLO class"""
+    """ define the YOLO class """
     def __init__(self, model_path, classes_path, class_t, nms_t, anchors):
-        """define and initialize attributes and variables"""
+        """ define and initialize attributes and variables """
         self.model = tf.keras.models.load_model(model_path)
         with open(classes_path, 'r') as f:
             self.class_names = [class_name[:-1] for class_name in f]
@@ -18,7 +17,7 @@ class Yolo:
         self.anchors = anchors
 
     def process_outputs(self, outputs, image_size):
-        """function that processes single-image predictions"""
+        """ function that processes single-image predictions """
         boxes = []
         box_confidences = []
         box_class_probs = []
@@ -77,26 +76,25 @@ class Yolo:
         return (boxes, box_confidences, box_class_probs)
 
     def sigmoid(self, array):
-        """define the sigmoid activation function"""
+        """ sigmoid function """
         return 1 / (1 + np.exp(-1 * array))
 
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
-        """function that filters boxes based on their objectness score"""
+        """ filter boxes """
         box_scores = []
         box_classes = []
         filtered_boxes = []
 
-        for i, (box_confidence,
-                box_class_prob, box) in enumerate(zip(box_confidences,
-                                                      box_class_probs, boxes)):
+        for i, (box_confidence, box_class_prob, box) in enumerate(
+                zip(box_confidences, box_class_probs, boxes)):
             box_scores_per_ouput = box_confidence * box_class_prob
             max_box_scores = np.max(box_scores_per_ouput, axis=3)
             max_box_scores = max_box_scores.reshape(-1)
             max_box_classes = np.argmax(box_scores_per_ouput, axis=3)
             max_box_classes = max_box_classes.reshape(-1)
             box = box.reshape(-1, 4)
-
             index_list = np.where(max_box_scores < self.class_t)
+
             max_box_scores_filtered = np.delete(max_box_scores, index_list)
             max_box_classes_filtered = np.delete(max_box_classes, index_list)
             filtered_box = np.delete(box, index_list, axis=0)
@@ -112,13 +110,14 @@ class Yolo:
         return (filtered_boxes, box_classes, box_scores)
 
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
-        """function that filters boxes based on their objectness score"""
+        """ non-max suppression """
         box_predictions = []
         predicted_box_classes = []
         predicted_box_scores = []
 
         for box_class in np.unique(box_classes):
             indices = np.where(box_classes == box_class)[0]
+
             filtered_boxes_subset = filtered_boxes[indices]
             box_classes_subset = box_classes[indices]
             box_scores_subset = box_scores[indices]
@@ -134,14 +133,15 @@ class Yolo:
 
             while len(ranked) > 0:
                 pick.append(ranked[0])
+
                 xx1 = np.maximum(x1[ranked[0]], x1[ranked[1:]])
                 yy1 = np.maximum(y1[ranked[0]], y1[ranked[1:]])
                 xx2 = np.minimum(x2[ranked[0]], x2[ranked[1:]])
                 yy2 = np.minimum(y2[ranked[0]], y2[ranked[1:]])
                 inter_areas = (np.maximum(0, xx2 - xx1 + 1) *
                                np.maximum(0, yy2 - yy1 + 1))
-                union_areas = (box_areas[ranked[0]] +
-                               box_areas[ranked[1:]] - inter_areas)
+                union_areas = (box_areas[ranked[0]] + box_areas[ranked[1:]]
+                               - inter_areas)
                 IOU = inter_areas / union_areas
 
                 updated_indices = np.where(IOU <= self.nms_t)[0]
@@ -160,8 +160,7 @@ class Yolo:
 
     @staticmethod
     def load_images(folder_path):
-        """function that loads images from a given image path"""
-
+        """ load images """
         image_paths = []
         images = []
 
@@ -176,10 +175,10 @@ class Yolo:
         return (images, image_paths)
 
     def preprocess_images(self, images):
-        """function that resizes and rescales images"""
-
+        """ preprocess images """
         pimages = []
         image_shapes = []
+
         input_width = self.model.input.shape[1].value
         input_height = self.model.input.shape[2].value
 
