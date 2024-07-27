@@ -4,3 +4,4 @@ supervised_learning/object_detection/yolo.h5
 supervised_learning/object_detection/__pycache__/2-yolo.cpython-310.pyc
 supervised_learning/object_detection/__pycache__/3-yolo.cpython-310.pyc
 supervised_learning/object_detection/__pycache__/5-yolo.cpython-310.pyc
+supervised_learning/object_detection/4-main.py
