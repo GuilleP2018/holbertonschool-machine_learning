@@ -28,16 +28,16 @@ def pca(X, ndim):
     # since dot(U.T,U) = I and dot(V.T,V) = I -> dot(X,V) = dot(U,S)
     # since V = W -> dot(X,W) = dot(U,S) -> T = dot(U,S) -> Tr = dot(Ur,Sr)
 
-    # Ensure that all dimensions have a mean of 0 across all data points
     X = X - np.mean(X, axis=0)
 
     # Compute the SVD:
     U, S, Vt = np.linalg.svd(X)
-    # print(S)
 
-    # Compute Tr, the transformed matrix X:
-    # print(U[..., :ndim])
-    # print(np.diag(S[..., :ndim]))
-    Tr = np.matmul(U[..., :ndim], np.diag(S[..., :ndim]))
+    # Compute the weights matrix
+    W = Vt[:ndim].T
 
-    return Tr
+    # Transform the data
+    T = np.matmul(X, W)
+
+    return T
+
