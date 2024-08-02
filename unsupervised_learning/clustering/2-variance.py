@@ -33,7 +33,7 @@ def variance(X, C):
     if d != C.shape[1]:
         return None
 
-    #process of the function
+    # process of the function
     vectorized_data_X = np.repeat(X, k, axis=0)
     vectorized_data_X = vectorized_data_X.reshape(n, k, d)
     vectorized_centroids = np.tile(C, (n, 1))
