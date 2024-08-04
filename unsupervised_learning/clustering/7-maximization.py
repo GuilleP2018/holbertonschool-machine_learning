@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """This modlue contains the function maximization(X, g)
 """

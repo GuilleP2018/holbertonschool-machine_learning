@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """This modlue contains the function maximization that performs the expectation
 maximization fr a GMM
