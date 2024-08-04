@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """This mdolue contains the function pdf(X, m, S)"""
 import numpy as np
