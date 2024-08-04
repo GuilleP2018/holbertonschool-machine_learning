@@ -1,39 +1,48 @@
-
 #!/usr/bin/env python3
-"""This mdolue contains the function pdf(X, m, S)"""
+"""This modulle contains the function expectation(X, pi, m, S)
+"""
 import numpy as np
+pdf = __import__('5-pdf').pdf
 
 
-def pdf(X, m, S):
-    """This function calculates the probability density
-    function of a Gaussian
+def expectation(X, pi, m, S):
+    """This function calculates the expectation step in the
+    EM algorithm fr a GMM
     """
+
     if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None
-
-    if not isinstance(m, np.ndarray) or m.ndim != 1:
-        return None
-
-    if not isinstance(S, np.ndarray) or S.ndim != 2:
-        return None
-
-    if X.shape[1] != m.shape[0] or X.shape[1] != S.shape[0]:
-        return None
-
-    if S.shape[0] != S.shape[1]:
-        return None
+        return None, None
+    if not isinstance(pi, np.ndarray) or pi.ndim != 1:
+        return None, None
+    if not isinstance(m, np.ndarray) or m.ndim != 2:
+        return None, None
+    if not isinstance(S, np.ndarray) or S.ndim != 3:
+        return None, None
 
     n, d = X.shape
 
-    normalization_factor = 1.0 / np.sqrt(((2 * np.pi) ** d) * np.linalg.det(S))
+    if pi.shape[0] > n:
+        return None, None
+    k = pi.shape[0]
+    if m.shape[0] != k or m.shape[1] != d:
+        return None, None
+    if S.shape[0] != k or S.shape[1] != d or S.shape[2] != d:
+        return None, None
 
-    mahalanobis_distance = np.matmul(np.linalg.inv(S), (X - m).T)
+    if not np.isclose([np.sum(pi)], [1])[0]:
+        return None, None
 
-    exponent_term = np.exp(
-        -0.5 * np.sum((X - m).T * mahalanobis_distance, axis=0))
+    pos = np.zeros((k, n))
 
-    pdf = normalization_factor * exponent_term
+    for cluster in range(k):
 
-    pdf = np.maximum(pdf, 1e-300)
+        PDF = pdf(X, m[cluster], S[cluster])
 
-    return pdf
+        pos[cluster] = pi[cluster] * PDF
+
+    sum_pos = np.sum(pos, axis=0, keepdims=True)
+    pos /= sum_pos
+
+    li = np.sum(np.log(sum_pos))
+
+    return pos, li
