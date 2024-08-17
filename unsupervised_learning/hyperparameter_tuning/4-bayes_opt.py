@@ -20,7 +20,8 @@ class BayesianOptimization:
         self.minimize = minimize
 
     def acquisition(self):
-        """Public instance method that calculates the next best sample location"""
+        """Public instance method that calculates the next
+        best sample location"""
         mu, sigma = self.gp.predict(self.X_s)
         if self.minimize:
             Y_sample = np.min(self.gp.Y)
