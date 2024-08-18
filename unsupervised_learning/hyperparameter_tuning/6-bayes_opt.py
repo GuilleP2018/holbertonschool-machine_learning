@@ -44,14 +44,13 @@ def objective_function(params):
     history = model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=100, batch_size=int(batch_size), callbacks=[checkpoint, early_stopping], verbose=0)
 
     best_accuracy = max(history.history['val_accuracy'])
-    return -best_accuracy  # Minimize negative accuracy
+    return -best_accuracy
 
 def main():
     print("Starting main function...")
     global X_train, y_train, X_val, y_val, X_test, y_test
     X_train, y_train, X_val, y_val, X_test, y_test = load_data()
 
-    # Define the hyperparameter space
     bounds = [
         {'name': 'learning_rate', 'type': 'continuous', 'domain': (1e-5, 1e-1)},
         {'name': 'filters', 'type': 'discrete', 'domain': (32, 64, 128)},
@@ -61,32 +60,25 @@ def main():
         {'name': 'batch_size', 'type': 'discrete', 'domain': (16, 32, 64, 128)}
     ]
 
-    # Initialize Bayesian Optimization
     print("Initializing Bayesian Optimization...")
     optimizer = GPyOpt.methods.BayesianOptimization(f=objective_function, domain=bounds, maximize=False)
 
-
-    # Run optimization
     print("Running optimization...")
     optimizer.run_optimization(max_iter=30)
 
-    # Plot convergence
     print("Plotting convergence...")
     optimizer.plot_convergence()
     plt.savefig('convergence_plot.png')
 
-    # Save optimization report
     print("Saving optimization report...")
     with open('bayes_opt.txt', 'w') as f:
         f.write(f"Best hyperparameters: {optimizer.x_opt}\n")
         f.write(f"Best accuracy: {-optimizer.fx_opt}\n")
 
-    # Load the best model
     print("Loading the best model...")
     best_model_path = f"model_lr{optimizer.x_opt[0]}_filters{optimizer.x_opt[1]}_kernel{optimizer.x_opt[2]}_dropout{optimizer.x_opt[3]}_l2{optimizer.x_opt[4]}_batch{optimizer.x_opt[5]}.keras"
     best_model = tf.keras.models.load_model(best_model_path)
 
-    # Evaluate the best model
     print("Evaluating the best model...")
     best_model.evaluate(X_test, y_test)
 
