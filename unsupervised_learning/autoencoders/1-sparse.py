@@ -4,8 +4,7 @@ import tensorflow.keras as keras
 
 
 def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
-    """This function creates a sparse autoencoder
-    """
+    """This function creates a sparse autoencoder"""
     encoder_inputs = keras.Input(shape=(input_dims,))
 
     for idx, units in enumerate(hidden_layers):
