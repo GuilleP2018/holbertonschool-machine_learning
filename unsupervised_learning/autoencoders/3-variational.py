@@ -44,7 +44,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decoder = keras.models.Model(inputs=decoder_inputs, outputs=outputs)
 
     outputs = encoder(encoder_inputs)
-    outputs = decoder(outputs[1])
+    outputs = decoder(outputs[0])
     auto = keras.models.Model(inputs=encoder_inputs, outputs=outputs)
 
     def compute_loss(inputs, outputs):
