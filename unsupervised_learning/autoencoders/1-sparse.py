@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """This modlue contains a sparse autoencoder function"""
 import tensorflow.keras as keras
