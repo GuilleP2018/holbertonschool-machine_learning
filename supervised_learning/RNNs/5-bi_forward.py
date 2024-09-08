@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """This module contains a BidirectionaCell class of an RNN"""
 import numpy as np
