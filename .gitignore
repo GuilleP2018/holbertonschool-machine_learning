@@ -5,3 +5,5 @@ supervised_learning/object_detection/__pycache__/2-yolo.cpython-310.pyc
 supervised_learning/object_detection/__pycache__/3-yolo.cpython-310.pyc
 supervised_learning/object_detection/__pycache__/5-yolo.cpython-310.pyc
 supervised_learning/object_detection/4-main.py
+supervised_learning/time_series/data/bitstampUSD_1-min_data_2012-01-01_to_2020-04-22.csv
+supervised_learning/time_series/data/coinbaseUSD_1-min_data_2014-12-01_to_2019-01-09.csv
