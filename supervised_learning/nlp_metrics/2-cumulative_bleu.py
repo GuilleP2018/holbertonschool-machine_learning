@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """This modle contain the cumulative_bleu function"""
 import numpy as np
