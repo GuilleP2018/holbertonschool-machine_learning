@@ -37,7 +37,7 @@ def sarsa_lambtha(env, Q, lambtha, episodes=5000, max_steps=100,
             if term or trunc:
                 break
 
-            state  = ns
+            state = ns
             action = naction
 
             epsilon_range = fepsilon - min_epsilon
