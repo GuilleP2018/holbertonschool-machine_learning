@@ -13,14 +13,16 @@ def epsilon_greedy(Q, state, epsilon):
         return np.argmax(Q[state])
 
 
-def sarsa_lambtha(env, Q, lambtha, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99, epsilon=1, min_epsilon=0.1, epsilon_decay=0.05):
+def sarsa_lambtha(env, Q, lambtha, episodes=5000, max_steps=100,
+                  alpha=0.1, gamma=0.99, epsilon=1,
+                  min_epsilon=0.1, epsilon_decay=0.05):
     """ Performs SARSA(λ)
     """
     fepsilon = epsilon
 
     for episode in range(episodes):
-        es     = np.zeros_like(Q)
-        state  = env.reset()[0]
+        es = np.zeros_like(Q)
+        state = env.reset()[0]
         action = epsilon_greedy(Q, state, epsilon)
 
         for _ in range(max_steps):
@@ -38,5 +40,8 @@ def sarsa_lambtha(env, Q, lambtha, episodes=5000, max_steps=100, alpha=0.1, gamm
             state  = ns
             action = naction
 
-        epsilon = min_epsilon + (fepsilon - min_epsilon) * np.exp(-epsilon_decay * episode)
+            epsilon_range = fepsilon - min_epsilon
+            decay_factor = np.exp(-epsilon_decay * episode)
+
+        epsilon = min_epsilon + epsilon_range * decay_factor
     return Q
