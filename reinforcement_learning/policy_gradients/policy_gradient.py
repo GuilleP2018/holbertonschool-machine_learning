@@ -5,6 +5,7 @@ Simple stochastic policy function
 
 import numpy as np
 
+
 def policy(matrix, weight):
     """
     Computes a stochastic policy by taking a weighted combination of the
