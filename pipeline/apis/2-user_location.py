@@ -10,10 +10,6 @@ from datetime import datetime
 def get_user_location(api_url):
     """
     Fetch the location of a GitHub user from the GitHub API.
-
-    If the user doesn't exist (404), print 'Not found'.
-    If rate-limited (403), print the time to reset in minutes.
-    If the user exists, print the user's location or 'No location found'.
     """
     response = requests.get(api_url)
 
